@@ -1,0 +1,22 @@
+.title {
+  text-align: center;
+  font-size: x-large;
+}
+
+.border {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: repeat(3, 200px);
+}
+.box {
+  border: 2px solid black;
+  background-color: rgb(124, 139, 55);
+}
