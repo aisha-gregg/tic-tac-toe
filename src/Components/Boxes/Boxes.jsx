@@ -18,6 +18,10 @@ export function Boxes() {
   ]);
 
   function play(index) {
+    if (board[index] !== null) {
+      return;
+    }
+
     const boardCopy = [...board];
     boardCopy[index] = "X";
     setBoard(boardCopy);
