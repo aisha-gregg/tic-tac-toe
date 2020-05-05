@@ -46,17 +46,16 @@ export function Boxes() {
       }
     }
 
-    const firstColumnIsEqual = board[0] === board[3] && board[3] === board[6];
-    if (board[0] !== null && firstColumnIsEqual) {
-      return true;
-    }
-    const isSecondColumnEqual = board[1] === board[4] && board[4] === board[7];
-    if (board[1] !== null && isSecondColumnEqual) {
-      return true;
-    }
-    const isThirdColumnEqual = board[2] === board[5] && board[5] === board[8];
-    if (board[2] !== null && isThirdColumnEqual) {
-      return true;
+    const columnStartingPoints = [0, 1, 2];
+
+    for (const column of columnStartingPoints) {
+      if (
+        board[column] !== null &&
+        board[column] === board[column + 3] &&
+        board[column + 3] === board[column + 6]
+      ) {
+        return true;
+      }
     }
 
     const isSecondDiagonalEqual =
