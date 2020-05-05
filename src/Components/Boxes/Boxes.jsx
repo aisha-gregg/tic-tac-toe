@@ -34,17 +34,16 @@ export function Boxes() {
   }
 
   function isThereAWinner() {
-    const firstRowIsEqual = board[0] === board[1] && board[1] === board[2];
-    if (board[0] !== null && firstRowIsEqual) {
-      return true;
-    }
-    const secondRowIsEqual = board[3] === board[4] && board[4] === board[5];
-    if (board[3] !== null && secondRowIsEqual) {
-      return true;
-    }
-    const isThirdRowEqual = board[6] === board[7] && board[7] === board[8];
-    if (board[6] !== null && isThirdRowEqual) {
-      return true;
+    const rowStartingPoints = [0, 3, 6];
+
+    for (const row of rowStartingPoints) {
+      if (
+        board[row] !== null &&
+        board[row] === board[row + 1] &&
+        board[row + 1] === board[row + 2]
+      ) {
+        return true;
+      }
     }
 
     const firstColumnIsEqual = board[0] === board[3] && board[3] === board[6];
