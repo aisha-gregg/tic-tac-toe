@@ -33,29 +33,29 @@ export function Boxes() {
     setBoard(boardCopy);
   }
 
-  function isThereAWinner() {
-    const rowStartingPoints = [0, 3, 6];
-
-    for (const row of rowStartingPoints) {
+  function checkElements(startingPoints, offset) {
+    for (const element of startingPoints) {
       if (
-        board[row] !== null &&
-        board[row] === board[row + 1] &&
-        board[row + 1] === board[row + 2]
+        board[element] !== null &&
+        board[element] === board[element + offset] &&
+        board[element + offset] === board[element + offset * 2]
       ) {
         return true;
       }
     }
 
-    const columnStartingPoints = [0, 1, 2];
+    return false;
+  }
 
-    for (const column of columnStartingPoints) {
-      if (
-        board[column] !== null &&
-        board[column] === board[column + 3] &&
-        board[column + 3] === board[column + 6]
-      ) {
-        return true;
-      }
+  function isThereAWinner() {
+    const rowStartingPoints = [0, 3, 6];
+    if (checkElements(rowStartingPoints, 1)) {
+      return true;
+    }
+
+    const columnStartingPoints = [0, 1, 2];
+    if (checkElements(columnStartingPoints, 3)) {
+      return true;
     }
 
     const isSecondDiagonalEqual =
