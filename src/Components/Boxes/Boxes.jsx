@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./boxes.module.css";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
 export function Boxes() {
-  const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [board, setBoard] = useState([
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ]);
+  const initialBoard = [null, null, null, null, null, null, null, null, null];
+  const initialPlayer = "X";
+  const [currentPlayer, setCurrentPlayer] = useState(initialPlayer);
+  const [board, setBoard] = useState(initialBoard);
 
   function play(index) {
     if (board[index] !== null || isThereAWinner()) {
@@ -41,6 +33,11 @@ export function Boxes() {
     }
 
     return false;
+  }
+
+  function restart() {
+    setBoard(initialBoard);
+    setCurrentPlayer(lastPlayer);
   }
 
   function isThereAWinner() {
@@ -72,7 +69,15 @@ export function Boxes() {
   return (
     <>
       <div className={cx("title")}>TicTacToe Mania </div>
-      {isThereAWinner() && <div>Player {lastPlayer} won</div>}
+      {isThereAWinner() && (
+        <div>
+          <div>Player {lastPlayer} won</div>
+          <div>
+            <h2>Replay game</h2>
+            <button onClick={() => restart()}>Replay</button>
+          </div>
+        </div>
+      )}
 
       <div className={styles.border}>
         <div className={styles.grid}>
