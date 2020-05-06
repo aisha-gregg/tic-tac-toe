@@ -40,6 +40,10 @@ export function Boxes() {
     setCurrentPlayer(lastPlayer);
   }
 
+  function isSquashed() {
+    return board.every((cell) => cell !== null) && !isThereAWinner();
+  }
+
   function isThereAWinner() {
     const rowStartingPoints = [0, 3, 6];
     if (checkElements(rowStartingPoints, 1)) {
@@ -66,16 +70,27 @@ export function Boxes() {
 
   const lastPlayer = currentPlayer === "X" ? "O" : "X";
 
+  const replayGame = () => (
+    <div>
+      <h2>Replay game</h2>
+      <button onClick={() => restart()}>Replay</button>
+    </div>
+  );
+
   return (
     <>
       <div className={cx("title")}>TicTacToe Mania </div>
       {isThereAWinner() && (
         <div>
           <div>Player {lastPlayer} won</div>
-          <div>
-            <h2>Replay game</h2>
-            <button onClick={() => restart()}>Replay</button>
-          </div>
+          {replayGame()}
+        </div>
+      )}
+
+      {isSquashed() && (
+        <div>
+          <div>It's a tie!</div>
+          {replayGame()}
         </div>
       )}
 
