@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 export function Boxes() {
+  const [currentPlayer, setCurrentPlayer] = useState("X");
   const [board, setBoard] = useState([
     null,
     null,
@@ -29,7 +30,8 @@ export function Boxes() {
     }
 
     const boardCopy = [...board];
-    boardCopy[index] = "X";
+    boardCopy[index] = currentPlayer;
+    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     setBoard(boardCopy);
   }
 
