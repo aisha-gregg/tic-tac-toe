@@ -18,12 +18,6 @@ export function Boxes() {
     null,
   ]);
 
-  useEffect(() => {
-    if (isThereAWinner()) {
-      console.log("Winner");
-    }
-  }, [board]);
-
   function play(index) {
     if (board[index] !== null || isThereAWinner()) {
       return;
@@ -73,9 +67,12 @@ export function Boxes() {
     return false;
   }
 
+  const lastPlayer = currentPlayer === "X" ? "O" : "X";
+
   return (
     <>
       <div className={cx("title")}>TicTacToe Mania </div>
+      {isThereAWinner() && <div>Player {lastPlayer} won</div>}
 
       <div className={styles.border}>
         <div className={styles.grid}>
