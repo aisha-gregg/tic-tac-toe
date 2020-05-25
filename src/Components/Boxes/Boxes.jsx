@@ -21,6 +21,15 @@ export function Boxes() {
     setBoard(boardCopy);
   }
 
+  function restart() {
+    setBoard(initialBoard);
+    setCurrentPlayer(lastPlayer);
+  }
+
+  function isSquashed() {
+    return board.every((cell) => cell !== null) && !isThereAWinner();
+  }
+
   function checkElements(startingPoints, offset) {
     for (const element of startingPoints) {
       if (
@@ -34,16 +43,6 @@ export function Boxes() {
 
     return false;
   }
-
-  function restart() {
-    setBoard(initialBoard);
-    setCurrentPlayer(lastPlayer);
-  }
-
-  function isSquashed() {
-    return board.every((cell) => cell !== null) && !isThereAWinner();
-  }
-
   function isThereAWinner() {
     const rowStartingPoints = [0, 3, 6];
     if (checkElements(rowStartingPoints, 1)) {
@@ -72,29 +71,29 @@ export function Boxes() {
 
   const replayGame = () => (
     <div>
-      <h2>Replay game</h2>
+      <h2>New game?</h2>
       <button onClick={() => restart()}>Replay</button>
     </div>
   );
 
   return (
     <>
-      <div className={cx("title")}>TicTacToe Mania </div>
       {isThereAWinner() && (
-        <div>
-          <div>Player {lastPlayer} won</div>
+        <div className={cx("winner-text")}>
+          <div>Player {lastPlayer} won!</div>
           {replayGame()}
         </div>
       )}
 
       {isSquashed() && (
-        <div>
+        <div classNamme={cx("tie-text")}>
           <div>It's a tie!</div>
           {replayGame()}
         </div>
       )}
 
       <div className={styles.border}>
+        <div className={cx("title")}>Tic Tac Toe Mania </div>
         <div className={styles.grid}>
           {board.map((cell, index) => (
             <div key={index} className={cx("box")} onClick={() => play(index)}>
